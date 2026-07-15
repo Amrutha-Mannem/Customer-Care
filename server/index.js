@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
-//changesih
+
 // Load environment variables
 dotenv.config();
 
@@ -11,7 +11,21 @@ const app = express();
 
 // Connect to Database
 connectDB();
+const path = require('path');
 
+// ... existing code ...
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+// ... your routes ...
+
+// Handle React routing - return index.html for any route not found
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
+
+// ... rest of your code ...
 // Middleware
 app.use(cors());
 app.use(express.json());
