@@ -1,15 +1,18 @@
-// client/src/context/AuthContext.js
 import { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
 const AuthContext = createContext();
+
+// Dynamic API URL: Uses Render URL in production, localhost in development
+const API_URL = window.location.hostname === 'localhost' 
+  ? 'http://localhost:8000/api' 
+  : 'https://customer-care-c92g.onrender.com/api';
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is logged in on page load
     const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
     
@@ -22,18 +25,15 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:8000/api/auth/login', {
-        email,
-        password
-      });
+      const response = await axios.post(`${API_URL}/auth/login`, { email, password });
       
-      const { token, ...userData } = response.data.data;
+      const { token, ...userDetails } = response.data.data;
       
       localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(userData));
+      localStorage.setItem('user', JSON.stringify(userDetails));
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       
-      setUser(userData);
+      setUser(userDetails);
       return { success: true };
     } catch (error) {
       return { 
@@ -43,17 +43,19 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = async (userData) => {
+  const register = async (formData) => {
     try {
-      const response = await axios.post('http://localhost:8000/api/auth/register', userData);
+      // Changed parameter name to formData to avoid conflict
+      const response = await axios.post(`${API_URL}/auth/register`, formData);
       
-      const { token, ...userData } = response.data.data;
+      // Fixed variable shadowing: use userDetails instead of userData
+      const { token, ...userDetails } = response.data.data;
       
       localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(userData));
+      localStorage.setItem('user', JSON.stringify(userDetails));
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       
-      setUser(userData);
+      setUser(userDetails);
       return { success: true };
     } catch (error) {
       return { 
