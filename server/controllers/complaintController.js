@@ -1,5 +1,5 @@
 // server/controllers/complaintController.js
-const Complaint = require('../models/Complaint');
+const Complaint = require('../models/complaint');
 
 // Get all complaints
 exports.getComplaints = async (req, res) => {

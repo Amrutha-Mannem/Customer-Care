@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 // Import models
-const User = require('./models/User');
-const Complaint = require('./models/Complaint');
+const User = require('./models/user');
+const Complaint = require('./models/complaint');
 
 async function testModels() {
   try {
