@@ -13,19 +13,18 @@ const app = express();
 connectDB();
 const path = require('path');
 
-// ... existing code ...
-
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, '../client/dist')));
-
-// ... your routes ...
-
-// Handle React routing - return index.html for any route not found
-app.get('*', (req, res) => {
+// Add this AFTER all your API routes
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
-// ... rest of your code ...
+// For React Router support, use this instead of '*'
+app.use((req, res, next) => {
+  if (req.path.includes('.') || req.path.startsWith('/api')) {
+    return next();
+  }
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
 // Middleware
 app.use(cors());
 app.use(express.json());
