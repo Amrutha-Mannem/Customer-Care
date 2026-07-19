@@ -213,6 +213,16 @@ npm start
 - `POST /api/complaints` - Create new complaint
 - `PUT /api/complaints/:id` - Update complaint
 - `DELETE /api/complaints/:id` - Delete complaint
+  <img width="752" height="405" alt="image" src="https://github.com/user-attachments/assets/49c5ffc6-bd09-404d-8e09-d4e9af372bf3" />
+<img width="752" height="512" alt="image" src="https://github.com/user-attachments/assets/df945581-6b27-4110-aacd-e9b4a19933c4" />
+<img width="752" height="552" alt="image" src="https://github.com/user-attachments/assets/881dd824-a9a8-4465-a622-2fa88d3a8596" /><img width="752" height="534" alt="image" src="https://github.com/user-attachments/assets/437af499-e4bb-49bc-a7a8-943025d80681" /><img width="752" height="546" alt="image" src="https://github.com/user-attachments/assets/7cdcc05e-47b7-4cfb-ba2c-d3100c976a1a" /><img width="752" height="536" alt="image" src="https://github.com/user-attachments/assets/fde8906e-3ee9-4aa4-abd3-010d6fd60337" /><img width="752" height="530" alt="image" src="https://github.com/user-attachments/assets/3dde3dc3-fadc-46d5-be23-38fb82f10250" />
+
+<img width="752" height="407" alt="image" src="https://github.com/user-attachments/assets/7ffb5319-dd6e-4dfa-9d26-11d0bcf8fdf0" />
+
+<img width="752" height="501" alt="image" src="https://github.com/user-attachments/assets/1c9ef9c5-297f-472b-ac4a-990a48699baa" />
+
+
+
 
 ## 🌐 Deployment
 
