@@ -1,3 +1,11 @@
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+require('dotenv').config();
+
+// Import database connection
+const connectDB = require('./config/db');
+
 // Debug environment variables
 console.log('=== ENVIRONMENT VARIABLES ===');
 console.log('MONGO_URI exists:', !!process.env.MONGO_URI);
@@ -5,12 +13,10 @@ console.log('MONGO_URI length:', process.env.MONGO_URI?.length);
 console.log('MONGO_URI starts with:', process.env.MONGO_URI?.substring(0, 20));
 console.log('===========================');
 
-// Then connect
+// Connect to database
 connectDB();
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
-require('dotenv').config();
+
+
 
 const app = express();
 
