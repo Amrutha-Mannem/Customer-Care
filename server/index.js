@@ -1,3 +1,12 @@
+// Debug environment variables
+console.log('=== ENVIRONMENT VARIABLES ===');
+console.log('MONGO_URI exists:', !!process.env.MONGO_URI);
+console.log('MONGO_URI length:', process.env.MONGO_URI?.length);
+console.log('MONGO_URI starts with:', process.env.MONGO_URI?.substring(0, 20));
+console.log('===========================');
+
+// Then connect
+connectDB();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
