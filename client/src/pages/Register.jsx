@@ -1,7 +1,7 @@
 // client/src/pages/Register.jsx
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/axios'; // ✅ IMPORT OUR CONFIGURED API HERE
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -31,12 +31,14 @@ const Register = () => {
 
     setLoading(true);
     try {
-      // Send data to backend
+      // Send data to backend using the configured 'api' instance
       const { confirmPassword, ...dataToSend } = formData;
-      const response = await axios.post('http://localhost:8000/api/auth/register', dataToSend);
+      
+      // ✅ THIS IS THE FIX: Use 'api' and just the route path
+      const response = await api.post('/auth/register', dataToSend);
       
       // Save to local storage
-      const { token, ...userData } = response.data.data;
+      const { token, ...userData } = response.data.data || response.data; // Fallback just in case
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(userData));
       
@@ -44,7 +46,7 @@ const Register = () => {
       navigate('/dashboard');
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.message || 'Registration failed. Is the backend running?');
+      setError(err.response?.data?.message || 'Registration failed. Please try again.');
     } finally {
       setLoading(false);
     }
