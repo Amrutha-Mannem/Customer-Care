@@ -14,20 +14,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/complaints', require('./routes/complaintRoutes'));
 
-// ===== SERVE STATIC FILES (React build) =====
+// ===== SERVE STATIC FILES =====
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-// ===== REACT ROUTER SUPPORT =====
-// Catch-all route to serve index.html for client-side routing
-app.get('*', (req, res, next) => {
-  // Don't serve index.html for API routes or static files
+// ===== REACT ROUTER SUPPORT (FIXED - no wildcard) =====
+app.use((req, res, next) => {
+  // If it's an API route or has a file extension, skip
   if (req.path.startsWith('/api') || req.path.includes('.')) {
     return next();
   }
+  // Otherwise, serve index.html for React Router
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
-// ===== ERROR HANDLING MIDDLEWARE =====
+// ===== ERROR HANDLING =====
 app.use((err, req, res, next) => {
   console.error('Error:', err.stack);
   res.status(500).json({ 
@@ -40,6 +40,5 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`✅ Server is running on port ${PORT}`);
-  console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`✅ Server running on port ${PORT}`);
 });
